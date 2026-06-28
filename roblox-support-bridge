@@ -1,0 +1,42 @@
+const express = require("express");
+const Pusher = require("pusher");
+
+const app = express();
+app.use(express.json());
+
+// 🔑 Pusher config
+const pusher = new Pusher({
+  appId: "2171554",
+  key: "61f5177ad0d54392b67a",
+  secret: "PUT_NEW_SECRET_HERE",
+  cluster: "us2",
+  useTLS: true
+});
+
+// Roblox → send message
+app.post("/send", (req, res) => {
+  const { sessionId, message } = req.body;
+
+  pusher.trigger("support-channel", "message", {
+    sessionId,
+    message
+  });
+
+  res.send("ok");
+});
+
+// Mac terminal → reply
+app.post("/reply", (req, res) => {
+  const { sessionId, message } = req.body;
+
+  pusher.trigger("support-channel", "reply", {
+    sessionId,
+    message
+  });
+
+  res.send("ok");
+});
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server running");
+});
