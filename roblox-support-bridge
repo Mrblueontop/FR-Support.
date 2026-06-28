@@ -8,7 +8,7 @@ app.use(express.json());
 const pusher = new Pusher({
   appId: "2171554",
   key: "61f5177ad0d54392b67a",
-  secret: "PUT_NEW_SECRET_HERE",
+  secret: "1e3086ad4418c74ae423",
   cluster: "us2",
   useTLS: true
 });
